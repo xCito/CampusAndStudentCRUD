@@ -28,8 +28,8 @@ class CampusCard extends React.Component {
       
         <div className="campus-card">
           <img src={this.props.imageurl} className="campus-card-img" alt=""/>
-          <Link to={"/campus/"+this.props.name+"/"+this.props.id}>
-            <label className="campus-card-name">{this.props.name}</label>
+          <Link  className="campus-card-name" to={"/campus/"+this.props.name+"/"+this.props.id}>
+            <label>{this.props.name}</label>
           </Link>
           <button className="campus-card-editBtn">Edit</button>
           <button className="campus-card-deleteBtn" onClick={this.delete}>Delete</button>

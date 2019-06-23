@@ -1,51 +1,81 @@
-/* -------------------- Single Campus Container ------------------------ */
-
 .single-campus {
+  background-color: white;
+  box-shadow: 0px 0px 10px grey;
+  width: 70vw;
   margin: auto;
-  width: 94%;
+  padding: 20px;
 }
-.single-campus-container {
-  display: grid;
-  grid-template-areas: 
-    "img2   img2   name      ."
-    "img2   img2  descript descript"
-    "mid    mid     mid      mid";
-  grid-column-gap: 10px;
-  border: 1px solid black;
 
+.single-campus-container {
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 3fr 8fr 2fr;
+  grid-template-areas: 
+    "img  img  name  name"
+    "img  img  desc  desc"
+    "addr .    .     btns";
 }
 
 .single-campus-img {
-  grid-area: img2;
-}
-.single-campus-name {
-  grid-area: name
-}
-.single-campus-descript {
-  grid-area: descript;
-}
-.single-campus-bar {
-  grid-area: mid;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
- 
-  border: 1px solid black;
-  padding-right: 0px;
-}
-.single-campus-side-buttons{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-right: 10px;
-  width: 100px;
-  /* border: 1px solid black;   */
-}
-.single-campus-students-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  overflow-y: auto;
+  box-sizing: border-box;
+  grid-area: img;
+  height: 350px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid silver;
+  object-fit: contain;
+  background-color: white;
 }
 
+.single-campus-name {
+  grid-area: name;
+  place-self: center;
+  font-size: 2.5em;
+  font-weight: 500;
+}
+
+.single-campus-descript {
+  grid-area: desc;
+}
+
+.single-campus-address {
+  grid-area: addr;
+  justify-self: start;
+}
+.single-campus-side-buttons {
+  display: flex;
+  justify-content: space-around;
+  grid-area: btns;
+  justify-self: stretch;
+  align-self: center;
+}
+
+.single-campus-btn {
+  height: 30px;
+  width: 48%;
+  /* margin: 2px; */
+}
+
+.single-campus-students-container {
+  position: relative;
+  border: 1px solid aliceblue;
+  background-color: azure;
+  padding: 30px;
+}
+.single-campus-add-btn {
+  position: absolute;
+  top: -50px;
+  right: 10px;
+  width: 150px;
+  
+  background-color: rgb(12, 168, 168);
+  color: white;
+  padding: 12px;
+  border-style: none;
+  border-radius: 5px;
+}
+
+.single-campus-add-btn:hover {
+  background-color: rgb(31, 212, 212);
+}

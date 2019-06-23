@@ -55,27 +55,25 @@ class SingleCampus extends React.Component {
 
     return (
       <div className="single-campus">
-        <h2>The Campus Name</h2> 
-       
+
         <div className="single-campus-container">
           <img className="single-campus-img" src={this.state.img} alt=""/>
           <label className="single-campus-name">{this.state.name}</label>
           <p className="single-campus-descript">
             {this.state.desc}
           </p>
-        </div>
-
-        <div className="single-campus-bar">
-          <label>{this.state.addr}</label>
+          <label className="single-campus-address">{this.state.addr}</label>
           <div className="single-campus-side-buttons">
-            <button>Edit</button>
-            <button>Delete</button>
+            <button className="single-campus-btn">Edit</button>
+            <button className="single-campus-btn">Delete</button>
           </div>
         </div>
+
         <div>
-          <h2>Student on Campus</h2>
+          <h2>Students on Campus</h2>
         </div>
         <div className="single-campus-students-container">
+          <button className="single-campus-add-btn">Add Student</button>
           {studentCards}
         </div>
         
