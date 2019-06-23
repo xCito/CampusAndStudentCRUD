@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './../../stylesheets/student-form-style.css';
 
 class NewStudentForm extends React.Component {
   

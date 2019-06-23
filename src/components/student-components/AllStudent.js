@@ -3,6 +3,7 @@ import StudentCard from './StudentCard';
 import NewStudentForm from './NewStudentForm';
 import NoData from '../general-components/NoData';
 import axios from 'axios';
+import './../../stylesheets/student-page-style.css';
 
 class AllStudent extends React.Component {
   constructor(props) {

@@ -1,0 +1,54 @@
+/* -------------------- Add Campus Form ------------------------ */
+
+.campus-form-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(156, 30, 30, 0.24);
+  /* border: 1px solid black; */
+}
+
+.campus-form {
+  position: relative;
+  background-color: white;
+  opacity: 1;
+  width: 90vw;
+  height: 350px;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 10px;
+  border: .5px solid black;
+}
+.c-form {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 65%;
+  padding: 0 50px 0 50px;
+}
+.campus-add-btn {
+  width: 200px;
+  height: 50px;
+  align-self: center;
+}
+
+.campus-form-close-btn {
+  position: absolute;
+  text-align: center;
+  top:5px;
+  right:15px;
+  color: black;
+  /* border: 1px solid black; */
+  font: "Lucida Console";
+  font-size: 1.5em;
+  height: 30px;
+  width: 30px;
+}
+.campus-form-close-btn:hover {
+  cursor: pointer;
+}

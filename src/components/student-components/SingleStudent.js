@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import CampusCard from './CampusCard';
+import CampusCard from './../campus-components/CampusCard';
 import axios from 'axios';
+import '../../stylesheets/student-profile-style.css';
 
 class SingleStudent extends Component {
 

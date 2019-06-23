@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './../../stylesheets/student-card-style.css';
 
 class StudentCard extends React.Component {
 

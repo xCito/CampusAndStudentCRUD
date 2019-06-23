@@ -1,0 +1,51 @@
+/* -------------------- Single Campus Container ------------------------ */
+
+.single-campus {
+  margin: auto;
+  width: 94%;
+}
+.single-campus-container {
+  display: grid;
+  grid-template-areas: 
+    "img2   img2   name      ."
+    "img2   img2  descript descript"
+    "mid    mid     mid      mid";
+  grid-column-gap: 10px;
+  border: 1px solid black;
+
+}
+
+.single-campus-img {
+  grid-area: img2;
+}
+.single-campus-name {
+  grid-area: name
+}
+.single-campus-descript {
+  grid-area: descript;
+}
+.single-campus-bar {
+  grid-area: mid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+ 
+  border: 1px solid black;
+  padding-right: 0px;
+}
+.single-campus-side-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 10px;
+  width: 100px;
+  /* border: 1px solid black;   */
+}
+.single-campus-students-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-y: auto;
+}
+

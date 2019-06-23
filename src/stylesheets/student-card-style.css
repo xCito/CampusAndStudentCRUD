@@ -1,0 +1,41 @@
+/* -------------------- Student Card ------------------------ */
+.student-card {
+  position: relative;
+  top: 0px;
+  display: grid;
+  grid-template-columns: auto, auto, auto, auto;
+  grid-template-areas:
+    "img  img "
+    "img  img "
+    "name name"; 
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  justify-content: center;
+
+  height: 150px;
+  width: 130px;
+  border: 0.5px solid grey;
+  box-shadow: 0px 2px 4px grey;
+  background-color: rgb(250, 250, 250);
+  padding: 5px;
+  transform: rotate(0deg);
+  transition: box-shadow 0.1s, top 0.1s, rotate 0.3s, 0.1s ease-in;
+  margin: 5px;
+}
+.student-card:hover {
+  box-shadow: 0px 5px 7px grey;
+  transform: rotate(3deg);
+  top: -2px;
+}
+.student-card-img {
+  grid-area: img;
+  width: 120px;
+  height: 120px;
+}
+.student-card-name {
+  grid-area: name;
+
+  font-size: 0.9em;
+  font-weight: 400;
+  cursor: pointer;
+}

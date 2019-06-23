@@ -2,6 +2,7 @@ import React from 'react';
 import StudentCard from '../student-components/StudentCard';
 import NoData from '../general-components/NoData';
 import axios from 'axios';
+import './../../stylesheets/campus-profile-style.css';
 
 class SingleCampus extends React.Component {
 

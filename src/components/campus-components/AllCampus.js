@@ -3,6 +3,7 @@ import NewCampusForm from './NewCampusForm'
 import CampusCard from './CampusCard';
 import NoData from '../general-components/NoData';
 import axios from 'axios';
+import './../../stylesheets/campus-page-style.css';
 
 class AllCampus extends React.Component {
   constructor(props) {

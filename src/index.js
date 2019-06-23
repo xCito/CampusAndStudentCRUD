@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route }  from 'react-router-dom';
-import './index.css';
+import './stylesheets/index.css';
 
-import HomePage from './components/HomePage';
-import AllCampus from './components/AllCampus';
-import AllStudent from './components/AllStudent';
-import SingleCampus from './components/SingleCampus';
-import SingleStudent from './components/SingleStudent';
-import NavigationBar from './components/NavigationBar';
+import NavigationBar from './components/general-components/NavigationBar';
+import HomePage from './components/general-components/HomePage';
+import AllCampus from './components/campus-components/AllCampus';
+import SingleCampus from './components/campus-components/SingleCampus';
+import AllStudent from './components/student-components/AllStudent';
+import SingleStudent from './components/student-components/SingleStudent';
 
 
 const routing = (

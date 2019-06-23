@@ -1,0 +1,17 @@
+/* -------------------- All Campus Container ------------------------ */
+
+.all-campus-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  /* justify-content: space-evenly; */
+  overflow-y: auto;
+
+  /* border: 1px solid black; */
+  width: 94%;
+  height: 76vh;
+  /* margin: auto; */
+  padding: 10px;
+}
+

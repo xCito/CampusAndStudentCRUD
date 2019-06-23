@@ -1,0 +1,24 @@
+/* -------------------- Navigation Bar ------------------------ */
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+}
+
+.nav-link {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 100%;
+  color: grey;
+  /* border: 1px solid black; */
+}
+
+.nav-link:hover {
+  font-size: 1.1em;
+  color: white;
+}

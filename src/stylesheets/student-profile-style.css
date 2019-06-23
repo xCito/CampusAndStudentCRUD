@@ -1,0 +1,46 @@
+/* -------------------- Single Student Container ------------------------ */
+
+.single-student {
+  margin: auto;
+  width: 60%;
+  border: 1px solid black;
+  min-width: 600px;
+}
+.single-student-container {
+  position: relative;
+  display: flex;
+  border: 1px solid black;
+}
+
+.single-student-img {
+  width: 350px;
+  height: 300px;
+  /* border: 1px solid red; */
+}
+.single-student-header {
+  /* border: 1px solid black; */
+  margin-left: 10px;
+}
+.single-student-name {
+  font-size: 3em;
+}
+.single-student-email {
+  font-size: 1.2em;
+}
+.single-student-edit-btn {
+  width: 80px;
+  height: 30px;
+  font-size: 1em;
+}
+.single-student-del-btn {
+  width: 80px;
+  height: 30px;
+  font-size: 1em;
+  margin-left: 10px;
+}
+.single-student-side-buttons {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 10px;
+}
