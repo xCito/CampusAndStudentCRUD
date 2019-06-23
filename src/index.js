@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route }  from 'react-router-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import HomePage from './components/HomePage';
+import AllCampus from './components/AllCampus';
+import AllStudent from './components/AllStudent';
+import SingleCampus from './components/SingleCampus';
+import SingleStudent from './components/SingleStudent';
+import NavigationBar from './components/NavigationBar';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+const routing = (
+  <div>
+    <Router>
+      <NavigationBar />
+      <Route exact path='/' component={HomePage} ></Route>
+      <Route path='/all-students'component={AllStudent} ></Route>
+      <Route path='/all-campuses' component={AllCampus} ></Route>
+      <Route path='/campus/:name/:id' component={SingleCampus}></Route>
+      <Route path='/student/:name/:id' component={SingleStudent}></Route>
+    </Router>
+  </div>
+);
+
+
+ReactDOM.render( routing, document.getElementById('root'));
