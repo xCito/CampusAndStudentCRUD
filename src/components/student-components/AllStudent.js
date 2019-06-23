@@ -1,7 +1,7 @@
 import React from 'react';
 import StudentCard from './StudentCard';
-import NewStudentForm from './student-components/NewStudentForm';
-import NoData from './NoData';
+import NewStudentForm from './NewStudentForm';
+import NoData from '../general-components/NoData';
 import axios from 'axios';
 
 class AllStudent extends React.Component {

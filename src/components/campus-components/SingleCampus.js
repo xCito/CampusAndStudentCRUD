@@ -1,6 +1,6 @@
 import React from 'react';
-import StudentCard from './StudentCard';
-import NoData from './NoData';
+import StudentCard from '../student-components/StudentCard';
+import NoData from '../general-components/NoData';
 import axios from 'axios';
 
 class SingleCampus extends React.Component {
