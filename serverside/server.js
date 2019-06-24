@@ -91,6 +91,7 @@ app.get('/getSingleCampus/:campusId', function(request, response) {
   client.query('SELECT * FROM campuses WHERE id = $1', [request.params.campusId])
   .then((res) => {
     console.log('\tGet Request was successful'.cyan.underline);
+    // console.log(res.rows);
     response.send(res.rows);  // Returns array of student info obj
   })
   .catch( e => {              // Error returns empty array
@@ -171,6 +172,29 @@ app.post('/addStudent', function(request, response) {
     response.send('failure')  // if insertion failed 
   });  
 });
+
+// ------------------------ PUTS --------------------------- //
+app.put('/updateCampus/:id', function(request, response) {
+  console.log('PUT Request for: updating a campus'.blue);
+  let {name, address, imgUrl, description} = request.body;
+  // console.log(request.body);
+  let id = request.params.id;
+
+  let queryStr = 'UPDATE campuses SET name = $1,';
+  queryStr += 'address = $2, imageurl = $3, description = $4';
+  queryStr += 'WHERE id = $5';
+  client.query(queryStr, [name, address, imgUrl, description, id])
+  .then( res => {
+    console.log('\tUpdate successful'.blue.underline); 
+    response.send('success');
+  })
+  .catch( err => {
+    console.log('\tUpdate failed'.blue.underline);
+    console.log(err);
+    response.send('failure')
+  });
+})
+
 
 // ------------------------ DELETES --------------------------- //
 app.delete('/removeCampus', function(request, response) {

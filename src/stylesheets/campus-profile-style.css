@@ -3,24 +3,26 @@
   box-shadow: 0px 0px 10px grey;
   width: 70vw;
   margin: auto;
-  padding: 20px;
+  padding: 50px 15px 30px 15px;
 }
 
 .single-campus-container {
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 3fr 8fr 2fr;
+  grid-template-rows: 50px 300px 50px;
   grid-template-areas: 
     "img  img  name  name"
     "img  img  desc  desc"
     "addr .    .     btns";
+  grid-column-gap: 10px;
+  grid-row-gap: 20px;
 }
 
 .single-campus-img {
   box-sizing: border-box;
   grid-area: img;
-  height: 350px;
+  height: 100%;
   width: 100%;
   padding: 10px;
   border: 1px solid silver;
@@ -37,11 +39,18 @@
 
 .single-campus-descript {
   grid-area: desc;
+  word-wrap: break-word;
+  white-space: pre-line;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0px;
 }
 
 .single-campus-address {
   grid-area: addr;
   justify-self: start;
+  align-self: start;
 }
 .single-campus-side-buttons {
   display: flex;
@@ -78,4 +87,14 @@
 
 .single-campus-add-btn:hover {
   background-color: rgb(31, 212, 212);
+}
+
+.single-campus-modal-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 255, 0.199);
 }
