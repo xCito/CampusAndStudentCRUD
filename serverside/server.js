@@ -2,10 +2,8 @@
 const { Client } = require('pg');
 const express = require('express');
 const colors = require('colors');
-const {dbpass} = require('./../dp_pass');
-
 // Set up connection to my postgres database
-const connString = 'postgres://postgres:'+dbpass+'@localhost:5432/postgres';
+const connString = 'postgres://postgres:'+process.env.PGPASSWORD+'@localhost:5432/postgres';
 const client = new Client({
   connectionString: connString,
 })
