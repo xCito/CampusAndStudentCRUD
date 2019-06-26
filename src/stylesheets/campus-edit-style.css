@@ -2,26 +2,30 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
-  grid-template-rows: 50px 50px 50px 50px 200px 50px;
+  grid-template-rows: 50px 40px 40px 40px 180px 40px 40px auto;
   grid-template-areas: 
-  "title    title     title "
-  "name     nInput    nInput"
-  "locati   lInput    lInput"
-  "imgurl   iInput    iInput"
-  "descr    dInput    dInput"
-  ".        savebtn   .     ";
+  "title    title      title "
+  "name     nInput     nInput"
+  "locati   lInput     lInput"
+  "imgurl   iInput     iInput"
+  "descr    dInput     dInput"
+  ".        savebtn    .     "
+  "dropdown dropdown   addBtn"
+  "students students  students";
+
   grid-column-gap: 20px;
+  grid-row-gap: 10px;
   align-items: start;
 
   width: 600px; 
-  height: 450px;
+  /* height: 1450px; */
   border-radius: 5px;
   background-color:white;
   padding: 40px 30px 30px 30px;
   margin: 100px auto;
 }
 
-.edit-header {
+.campus-edit-header {
   position: relative;
   top: -35px;
   grid-area: title;
@@ -54,7 +58,7 @@
 .loca-input {
   grid-area: lInput;
 }
-.url-input {
+.campus-url-input {
   grid-area: iInput;
 }
 .desc-input {
@@ -62,7 +66,7 @@
   resize: none;
   
 }
-.save-changes {
+.campus-save-changes {
   grid-area: savebtn;
   height: 40px;
 }
@@ -72,4 +76,20 @@
   right:10px;
   font-size: 1.3em;
   cursor: pointer;
+}
+
+.student-names-dropdown {
+  grid-area: dropdown;
+  width: 70%;
+  place-self: center;
+}
+
+.add-to-campus-btn {
+  grid-area: addBtn;
+  justify-self: start;
+  align-self: center;
+}
+
+.students-card-container {
+  grid-area: students;
 }

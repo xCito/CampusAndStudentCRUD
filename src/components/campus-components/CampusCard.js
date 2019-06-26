@@ -4,9 +4,17 @@ import {Link} from 'react-router-dom';
 import './../../stylesheets/campus-card-style.css';
 
 class CampusCard extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      id: props.id,
+      name: props.name,
+      img: props.imageurl
+    }
+  }
+  
+
   delete = () => {
     console.log(this.props);
     let config = {
@@ -19,8 +27,11 @@ class CampusCard extends React.Component {
     .catch( err => console.log(err) );
   }
 
-  redirectToCampusPage = () => {
-
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if(!Object.is(nextProps, prevState)) {
+      return nextProps;
+    }
+    return null;
   }
 
   render() {

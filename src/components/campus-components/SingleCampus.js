@@ -34,6 +34,7 @@ class SingleCampus extends React.Component {
         // console.log(res);
         let campusInfo = res[0].data[0];
         let studentArr = res[1].data;
+        console.log(res[1]);
 
         this.setState( {
           name: campusInfo.name,
@@ -84,13 +85,15 @@ class SingleCampus extends React.Component {
       desc : this.state.desc,
       img  : this.state.img
     }
-    console.log(campusAttributes);
     // Show student cards of this campus
     let studentCards = this.state.students.map( (e, i) => {
+      console.log("Student" + i);
       return <StudentCard key={'student'+e.id} {...e}/>
     });
+    
     if(studentCards.length === 0) {
-      studentCards = <NoData title='No Students to show' msg='No students attending this campus registered in database'/>
+      studentCards = <NoData title='No Students to show' 
+                      msg='No students attending this campus registered in database'/>
     }
 
     return (
@@ -99,9 +102,7 @@ class SingleCampus extends React.Component {
         <div className="single-campus-container">
           <img className="single-campus-img" src={this.state.img} alt=""/>
           <label className="single-campus-name">{this.state.name}</label>
-          <p className="single-campus-descript">
-            {this.state.desc}
-          </p>
+          <p className="single-campus-descript">{this.state.desc}</p>
           <label className="single-campus-address">{this.state.addr}</label>
           <div className="single-campus-side-buttons">
             <button className="single-campus-btn" onClick={this.toggleModal}>Edit</button>

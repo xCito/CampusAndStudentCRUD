@@ -10,7 +10,7 @@
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 50px 300px 50px;
+  grid-template-rows: auto 300px 50px;
   grid-template-areas: 
     "img  img  name  name"
     "img  img  desc  desc"
@@ -32,7 +32,8 @@
 
 .single-campus-name {
   grid-area: name;
-  place-self: center;
+  align-self: baseline;
+  justify-self: center;
   font-size: 2.5em;
   font-weight: 500;
 }
@@ -67,6 +68,10 @@
 }
 
 .single-campus-students-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* justify-content: space-evenly; */
   position: relative;
   border: 1px solid aliceblue;
   background-color: azure;
@@ -91,10 +96,11 @@
 
 .single-campus-modal-container {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
   background-color: rgba(10, 10, 255, 0.199);
 }

@@ -44,7 +44,7 @@ class EditCampusForm extends Component {
 
     return (
       <div className="edit-campus-modal">
-        <h1 className="edit-header">Edit Campus</h1>
+        <h1 className="campus-edit-header">Edit Campus</h1>
         <label className="close-modal" onClick={this.props.closeModal}>✕</label>
         <label className="edit-name-label">Campus Name</label>
         <label className="edit-loca-label">Campus Location</label>
@@ -55,12 +55,17 @@ class EditCampusForm extends Component {
         onChange={this.updateName} required />
         <input className="loca-input" type="text" value={this.state.addr}
         onChange={this.updateAddr} required/>
-        <input className="url-input" type="text" value={this.state.img} 
+        <input className="campus-url-input" type="text" value={this.state.img} 
         onChange={this.updateImg} required/>
         <textarea className="desc-input" rows="11" value={this.state.desc}
         onChange={this.updateDesc}/>
         
-        <button className="save-changes" onClick={this.saveButtonHandler}>Save Changes</button>
+        <button className="campus-save-changes" onClick={this.saveButtonHandler}>Save Changes</button>
+        <select className="student-names-dropdown"></select>
+        <button className="add-to-campus-btn">Add to Campus</button>
+        <div className="students-card-container">
+
+        </div>
       </div>      
     )
   }

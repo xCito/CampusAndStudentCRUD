@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CampusCard from './../campus-components/CampusCard';
+import EditStudentForm from './EditStudentForm';
 import axios from 'axios';
 import '../../stylesheets/student-profile-style.css';
 
@@ -8,16 +9,32 @@ class SingleStudent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name : ' ',
-      email: ' ',
-      img: ' ',
-      gpa: 0.0,
-      campusInfo: {}
+      fname : '',
+      lname : '',
+      email : '',
+      gpa   : -1,
+      img   : '',
+      campusId : '',
+      campusInfo: undefined,
+      allCampus: []
     };
   }
 
   componentDidMount() {
     this.fetchStudentInfo();
+  }
+
+  componentDidUpdate() {
+    let select = document.getElementById('camp-select');
+    select.innerHTML = '';
+    
+    for(let camp of this.state.allCampus) {
+      let option = document.createElement('option');
+      option.value = camp.id;
+      option.text = camp.name;
+      select.add(option);
+    }
+
   }
 
   fetchStudentInfo = () => {
@@ -27,10 +44,12 @@ class SingleStudent extends Component {
       let data = res.data[0];
       console.log(data);
       this.setState({
-        name: data.fname + ' ' + data.lname,
-        email: data.email,
-        img: data.imageurl,
-        gpa: data.gpa
+        fname : data.fname,
+        lname : data.lname,
+        email : data.email,
+        gpa   : data.gpa,
+        img   : data.imageurl,
+        campusId : data.campus_id
       });
       this.fetchCampusInfo(data['campus_id']);
     })
@@ -40,38 +59,92 @@ class SingleStudent extends Component {
   }
 
   fetchCampusInfo = (campusId) => {
-    axios.get('http://localhost:5000/getSingleCampus/'+campusId)
+    axios.get('http://localhost:5000/getAllCampuses')
     .then( res => {
-      this.setState({campusInfo : res.data[0]})
+
+      // Get this students current campus
+      let campus = res.data.filter( (elem) => elem.id === this.state.campusId)[0];
+      console.log(res.data);
+      console.log('fetchedCampus %o', campus);
+      this.setState({campusInfo : campus, allCampus: res.data});
     })
     .catch( err => {
       console.log( err );
     });
   }
 
-  render() {
+  updateStudentInfo = () => {
+    let studentId = this.props.match.params.id;
+    let data = {
+      fname : this.state.fname,
+      lname : this.state.lname,
+      email : this.state.email,
+      gpa   : this.state.gpa,
+      imgUrl: this.state.img,
+      campusId: this.state.campusId
+    }
+    axios.put('http://localhost:5000/updateStudent/'+ studentId, data)
+    .then( res => {
+      this.fetchStudentInfo();
+      this.toggleModal();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
 
-    console.log(this.props);
+  updateStudentCampus = () => {
+    let id = this.props.match.params.id;
+    let newCampId = document.getElementById('camp-select').value;
+    console.log(newCampId);
+    axios.put('http://localhost:5000/updateStudentCampus/'+id, {campusId: newCampId})
+    .then( res => {
+      this.setState({campusInfo : res.data, campusId: res.data.id});  
+    })
+    .catch( err => console.log(err));
+  }
+
+  updateStateValues = ( obj ) => {
+    this.setState(obj);
+  }
+
+  toggleModal = () => {
+    let div = document.getElementById('student-edit-modal');
+    div.style.display = (div.style.display === "block") ? "none": "block";
+  }
+
+  render() {
 
     return (
       <div className="single-student">
-        <h2>The Student</h2> 
-       
         <div className="single-student-container">
           <img className="single-student-img" src={this.state.img} alt="nope"/>
-          <div className="single-student-header">
-            <label className="single-student-name">{this.state.name}</label>
-            <br /><br />
-            <label className="single-student-email">{this.state.email}</label>
-            <br />
-            <label className="single-student-email"><strong>GPA:</strong> {this.state.gpa}</label>
-          </div>
+          <label className="single-student-name">{this.state.fname+" "+this.state.lname}</label>
+          <label className="single-student-email"><b>Email:</b> {this.state.email}</label>
+          <label className="single-student-gpa"><b>GPA:</b> {this.state.gpa}</label>
           <div className="single-student-side-buttons">
-            <button className="single-student-edit-btn">Edit</button>
+            <button className="single-student-edit-btn" onClick={this.toggleModal}>Edit</button>
             <button className="single-student-del-btn">Delete</button>
           </div>
         </div>
-        <CampusCard {...this.state.campusInfo}/>
+
+        <div className="student-campus-container">
+          <CampusCard {...this.state.campusInfo}/>
+        
+          <div className="update-campus-container">
+            <select id="camp-select" className="campus-dropdown">
+            </select>
+            <button className="select-campus-btn" onClick={this.updateStudentCampus}>Set this Campus</button>  
+          </div>
+        </div>
+
+        <div id="student-edit-modal" className="single-student-modal-container">
+          <EditStudentForm {...this.state} 
+                            closeModal={this.toggleModal}
+                            saveChanges={this.updateStudentInfo} 
+                            updateParent={this.updateStateValues}/>
+        </div>
+      
       </div>
     )
   }

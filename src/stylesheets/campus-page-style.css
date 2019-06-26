@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   align-content: flex-start;
   /* justify-content: space-evenly; */
-  overflow-y: auto;
+  /* overflow-y: auto; */
 
   /* border: 1px solid black; */
   width: 94%;

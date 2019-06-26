@@ -8,8 +8,8 @@ class StudentCard extends React.Component {
     return(
       <div className="student-card">
         <img src={this.props.imageurl} className="student-card-img" alt=""/>
-        <Link to={"/student/"+this.props.fname+"/"+this.props.id}>
-          <label className="student-card-name">{this.props.fname} {this.props.lname}</label>
+        <Link to={"/student/"+this.props.fname+"/"+this.props.id} className="student-card-name">
+          <label>{this.props.fname} {this.props.lname}</label>
         </Link>
      </div>
     );

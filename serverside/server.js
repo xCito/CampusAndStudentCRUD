@@ -105,7 +105,7 @@ app.get('/getSingleCampus/:campusId', function(request, response) {
 app.get('/getStudentByCampusId/:campusId', function(request, response) {
   console.log('GET Request for: Students of specific campus'.cyan);
 
-  client.query('SELECT * FROM students WHERE campus_id = $1', [request.param.campusId])
+  client.query('SELECT * FROM students WHERE campus_id = $1', [request.params.campusId])
   .then( res => {
     console.log('\tGet Request was successful'.cyan.underline);
     response.send(res.rows);
@@ -191,6 +191,53 @@ app.put('/updateCampus/:id', function(request, response) {
     console.log(err);
     response.send('failure')
   });
+})
+
+/* + + + + + + + + + + + + + + + + */
+
+app.put('/updateStudent/:id', function(request, response) {
+  console.log('PUT Request for: updating a student'.blue);
+  let {fname, lname, email, imgUrl, gpa, campusId} = request.body;
+  let id = request.params.id;
+
+  let queryStr = 'UPDATE students SET fname = $1,';
+  queryStr += 'lname = $2, email = $3, imageurl = $4,';
+  queryStr += 'gpa = $5, campus_id = $6 WHERE id = $7';
+  client.query(queryStr, [fname, lname, email, imgUrl, gpa, campusId, id])
+  .then( res => {
+    console.log('\tUpdate successful'.blue.underline); 
+    response.send('success');
+  })
+  .catch( err => {
+    console.log('\tUpdate failed'.blue.underline);
+    console.log(err);
+    response.send('failure')
+  });
+})
+
+/* + + + + + + + + + + + + + + + + */
+
+app.put('/updateStudentCampus/:id', function(request, response) {
+  console.log('PUT Request for: updating student campus_id'.blue);
+  let campusId = request.body.campusId;
+
+  let queryStr = 'UPDATE students SET campus_id = $1';
+  queryStr += 'WHERE id = $2';
+
+  client.query(queryStr, [campusId, request.params.id])
+  .then( res => {
+    console.log('\tUpdate successful'.blue.underline);
+    client.query('SELECT * FROM campuses WHERE id = $1', [campusId])
+    .then( res2 => {
+      response.send(res2.rows[0]);
+    })
+  })
+  .catch( err => {
+    console.log('\tUpdate failed'.blue.underline);
+    console.log(err);
+    response.send('failure');
+  })
+
 })
 
 
