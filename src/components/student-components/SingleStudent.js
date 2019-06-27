@@ -24,19 +24,6 @@ class SingleStudent extends Component {
     this.fetchStudentInfo();
   }
 
-  componentDidUpdate() {
-    let select = document.getElementById('camp-select');
-    select.innerHTML = '';
-    
-    for(let camp of this.state.allCampus) {
-      let option = document.createElement('option');
-      option.value = camp.id;
-      option.text = camp.name;
-      select.add(option);
-    }
-
-  }
-
   fetchStudentInfo = () => {
     let id = this.props.match.params.id;
     axios.get('http://localhost:5000/getSingleStudent/'+id)
@@ -96,10 +83,18 @@ class SingleStudent extends Component {
   updateStudentCampus = () => {
     let id = this.props.match.params.id;
     let newCampId = document.getElementById('camp-select').value;
-    console.log(newCampId);
-    axios.put('http://localhost:5000/updateStudentCampus/'+id, {campusId: newCampId})
+
+    axios.put('http://localhost:5000/updateStudentCampusId/'+id, {campusId: newCampId})
     .then( res => {
-      this.setState({campusInfo : res.data, campusId: res.data.id});  
+      if(res.data === 'success') {
+        this.setState({campusId: newCampId});
+        return axios.get('http://localhost:5000/getSingleCampus/'+newCampId);
+      } else {
+        throw new Error('failed to updated student\'s campus id');
+      }
+    })
+    .then( res => {
+      this.setState({campusInfo : res.data[0]});
     })
     .catch( err => console.log(err));
   }
@@ -113,7 +108,24 @@ class SingleStudent extends Component {
     div.style.display = (div.style.display === "block") ? "none": "block";
   }
 
+  /*
+    componentDidUpdate() {
+    let select = document.getElementById('camp-select');
+    select.innerHTML = '';
+    
+    for(let camp of this.state.allCampus) {
+      let option = document.createElement('option');
+      option.value = camp.id;
+      option.text = camp.name;
+      select.add(option);
+    }
+
+  }*/
   render() {
+    let options = this.state.allCampus.map(e => {
+      return <option key={'campusOption'+e.id} value={e.id}>{e.name}</option>;
+    });
+
 
     return (
       <div className="single-student">
@@ -133,6 +145,8 @@ class SingleStudent extends Component {
         
           <div className="update-campus-container">
             <select id="camp-select" className="campus-dropdown">
+              <option>Select a campus...</option>
+              {options};
             </select>
             <button className="select-campus-btn" onClick={this.updateStudentCampus}>Set this Campus</button>  
           </div>

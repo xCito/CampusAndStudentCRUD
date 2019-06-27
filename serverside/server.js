@@ -217,20 +217,18 @@ app.put('/updateStudent/:id', function(request, response) {
 
 /* + + + + + + + + + + + + + + + + */
 
-app.put('/updateStudentCampus/:id', function(request, response) {
+app.put('/updateStudentCampusId/:studentId', function(request, response) {
   console.log('PUT Request for: updating student campus_id'.blue);
   let campusId = request.body.campusId;
+  let studentId = request.params.studentId;
 
   let queryStr = 'UPDATE students SET campus_id = $1';
   queryStr += 'WHERE id = $2';
 
-  client.query(queryStr, [campusId, request.params.id])
+  client.query(queryStr, [campusId, studentId])
   .then( res => {
     console.log('\tUpdate successful'.blue.underline);
-    client.query('SELECT * FROM campuses WHERE id = $1', [campusId])
-    .then( res2 => {
-      response.send(res2.rows[0]);
-    })
+    response.send('success');
   })
   .catch( err => {
     console.log('\tUpdate failed'.blue.underline);
@@ -240,7 +238,10 @@ app.put('/updateStudentCampus/:id', function(request, response) {
 
 })
 
-
+// client.query('SELECT * FROM campuses WHERE id = $1', [campusId])
+// .then( res2 => {
+//   response.send(res2.rows[0]);
+// })
 // ------------------------ DELETES --------------------------- //
 app.delete('/removeCampus', function(request, response) {
   console.log('DELETE Request for: A Campus by id'.green);

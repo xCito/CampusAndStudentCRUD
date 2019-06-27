@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './../../stylesheets/campus-edit-style.css';
+import StudentCardWide from './../../components/student-components/StudentCardWide';
+import axios from 'axios';
 
 class EditCampusForm extends Component {
   constructor(props) {
@@ -8,7 +10,8 @@ class EditCampusForm extends Component {
         name: props.name,
         addr: props.addr,
         img: props.img,
-        desc: props.desc
+        desc: props.desc,
+        allStudents: []
       }
   }
 
@@ -21,7 +24,6 @@ class EditCampusForm extends Component {
       return nextProps;
     return null;
   }
-
 
   updateName = (event) => {
     this.setState({name: event.target.value});
@@ -37,11 +39,23 @@ class EditCampusForm extends Component {
   }
 
   saveButtonHandler= () => {
-    this.props.updateParent(this.state);
+    this.props.updateSingleCampusPage(this.state);
     setTimeout(this.props.saveChanges, 1);
   }
-  render() {
 
+
+  render() {
+    let sortedList = this.props.allStudents.sort( (a, b) => a.fname.localeCompare(b.fname) );
+    console.log(sortedList);
+    let options = sortedList.map(e => {
+                  return <option key={"studentOption"+e.id} 
+                          value={e.id}>{e.fname+" "+e.lname}</option>
+                  });
+
+    let studentCards = sortedList.map( e => {
+                          return <StudentCardWide key={"studentCard"+e.id} {...e}
+                                  fetchStudents={this.props.fetchStudents}/> 
+                       });
     return (
       <div className="edit-campus-modal">
         <h1 className="campus-edit-header">Edit Campus</h1>
@@ -61,10 +75,13 @@ class EditCampusForm extends Component {
         onChange={this.updateDesc}/>
         
         <button className="campus-save-changes" onClick={this.saveButtonHandler}>Save Changes</button>
-        <select className="student-names-dropdown"></select>
+        <select className="student-names-dropdown">
+          <option>Select student...</option>
+          {options}
+        </select>
         <button className="add-to-campus-btn">Add to Campus</button>
         <div className="students-card-container">
-
+          {studentCards}
         </div>
       </div>      
     )

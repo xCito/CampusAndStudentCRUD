@@ -21,34 +21,37 @@ class SingleCampus extends React.Component {
 
   componentDidMount() {
     this.fetchCampusInfo();
+    this.fetchStudentsOfThisCampus();
   }
 
   fetchCampusInfo = () => {
     let campusId = this.props.match.params.id;
-
-    let campusPromise = axios.get('http://localhost:5000/getSingleCampus/'+campusId);
-    let studentsPromise = axios.get('http://localhost:5000/getStudentByCampusId/'+campusId);
     
-    Promise.all([campusPromise, studentsPromise])
+    axios.get('http://localhost:5000/getSingleCampus/'+campusId)
     .then( res => {
-        // console.log(res);
-        let campusInfo = res[0].data[0];
-        let studentArr = res[1].data;
-        console.log(res[1]);
+        let campusInfo = res.data[0];
 
         this.setState( {
           name: campusInfo.name,
           addr: campusInfo.address,
           desc: campusInfo.description || '',
           img: campusInfo.imageurl,
-          students: studentArr
         });
     })
     .catch( err => console.log(err));
 
   }
 
-  updateCampusInfo = () => {
+  fetchStudentsOfThisCampus = () => {
+    let campusId = this.props.match.params.id;
+    axios.get('http://localhost:5000/getStudentByCampusId/'+campusId)
+    .then( res => {
+      this.setState( {students: res.data} );
+    })
+    .catch( err => console.log(err));
+  }
+
+  sendCampusUpdateToDatabase = () => {
     let campusId = this.props.match.params.id;
     let data = {
       name: this.state.name,
@@ -66,7 +69,10 @@ class SingleCampus extends React.Component {
     });
   }
 
-  updateStateValues = ( obj ) => {
+  // Change the state of the this component.
+  // Used to be update state values from children 
+  // components
+  updateCampusInformation = ( obj ) => {
     this.setState(obj);
   }
 
@@ -119,8 +125,11 @@ class SingleCampus extends React.Component {
         </div>
         
         <div id="campus-edit-modal" className="single-campus-modal-container">
-          <EditCampusForm {...campusAttributes} closeModal={this.toggleModal} 
-          saveChanges={this.updateCampusInfo} updateParent={this.updateStateValues}/>
+          <EditCampusForm {...campusAttributes} allStudents={this.state.students} 
+                          closeModal={this.toggleModal} 
+                          saveChanges={this.sendCampusUpdateToDatabase} 
+                          updateSingleCampusPage={this.updateCampusInformation}
+                          fetchStudents={this.fetchStudentsOfThisCampus}/>
         </div>
 
       </div>

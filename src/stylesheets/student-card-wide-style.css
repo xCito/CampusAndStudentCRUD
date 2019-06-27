@@ -1,0 +1,30 @@
+.wide-card-container {
+  position: relative;
+  border: 1px solid gray;
+  background-color: azure;
+  width: 500px;
+  height: 60px;
+  padding: 5px;
+  margin: 5px 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.wide-card-img {
+  width: 80px;
+  height: 100%;
+  object-fit: contain;
+  border: 1px solid aliceblue;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.wide-card-name {
+  margin-left: 15px;
+}
+
+.wide-card-delete-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
