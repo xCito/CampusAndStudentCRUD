@@ -117,6 +117,23 @@ app.get('/getStudentByCampusId/:campusId', function(request, response) {
 
 });
 
+/* + + + + + + + + + + + + + + + + */
+
+// Route to get students of specific campus
+app.get('/getStudentsNotInCampus/:campusId', function(request, response) {
+  console.log('GET Request for: Students NOT in specific campus'.cyan);
+
+  client.query('SELECT * FROM students WHERE campus_id <> $1 OR campus_id IS NULL', [request.params.campusId])
+  .then( res => {
+    console.log('\tGet Request was successful'.cyan.underline);
+    response.send(res.rows);
+  })
+  .catch( err => {
+    console.log('\tGet Request failed'.cyan.underline);
+    response.send([]);
+  });
+});
+
 
 // ------------------------ POSTS --------------------------- //
 
@@ -238,14 +255,32 @@ app.put('/updateStudentCampusId/:studentId', function(request, response) {
 
 })
 
-// client.query('SELECT * FROM campuses WHERE id = $1', [campusId])
-// .then( res2 => {
-//   response.send(res2.rows[0]);
-// })
+/* + + + + + + + + + + + + + + + + */
+
+app.put('/removeAllStudentsFromCampus/:campusId', function(request, response) {
+  console.log('PUT Request for: removing all students under specific campus_id'.blue);
+  let campusId = request.params.campusId;
+
+  let queryStr = 'UPDATE students SET campus_id = NULL WHERE campus_id = $1';
+
+  client.query(queryStr, [campusId])
+  .then( res => {
+    console.log('\tUpdate successful'.blue.underline);
+    response.send('success');
+  })
+  .catch( err => {
+    console.log('\tUpdate failed'.blue.underline);
+    console.log(err);
+    response.send('failure');
+  })
+
+})
+
+
 // ------------------------ DELETES --------------------------- //
-app.delete('/removeCampus', function(request, response) {
+app.delete('/removeCampus/:campusId', function(request, response) {
   console.log('DELETE Request for: A Campus by id'.green);
-  let campusId = request.body.campusId;
+  let campusId = request.params.campusId;
 
   client.query('DELETE FROM campuses WHERE id = $1', [campusId])
   .then( (res) => {
@@ -253,6 +288,7 @@ app.delete('/removeCampus', function(request, response) {
       console.log('\tDeletion successful'.green.underline);
       response.send('success'); 
     } else {
+      console.log(res);
       console.log('\tDeletion failed'.green.underline);
       response.send('failure');
     }

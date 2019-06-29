@@ -7,11 +7,10 @@ class EditCampusForm extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        name: props.name,
+        name: props.name,   
         addr: props.addr,
-        img: props.img,
-        desc: props.desc,
-        allStudents: []
+        img: props.img, 
+        desc: props.desc
       }
   }
 
@@ -25,6 +24,7 @@ class EditCampusForm extends Component {
     return null;
   }
 
+  // OnChange Event handlers for input fields
   updateName = (event) => {
     this.setState({name: event.target.value});
   }
@@ -38,33 +38,61 @@ class EditCampusForm extends Component {
     this.setState({desc: event.target.value});
   }
 
-  saveButtonHandler= () => {
+  // calls setState of the parent component and sets
+  // this components state properties. 
+  saveButtonHandler = () => {
     this.props.updateSingleCampusPage(this.state);
-    setTimeout(this.props.saveChanges, 1);
+    
+    // Triggers a put request
+    // Places this function call on the event queue
+    // to happen after the setState function executes
+    setTimeout(this.props.saveChanges, 1);  
   }
 
+  addToCampusHandler = () => {
+    let select = document.getElementById('studentNamesDropdown');
+    let studentId = select.value;
+    if(!studentId) {
+      console.log('Invalid input');
+      return;
+    }
+    let data = {campusId : this.props.campusId};
+    console.log('adding to campus');
+    axios.put('http://localhost:5000/updateStudentCampusId/'+studentId, data)
+    .then( res => {
+      console.log(res);
+      this.props.fetchStudents();
+    })
+    .catch( err => console.log(err));
+  }
 
   render() {
-    let sortedList = this.props.allStudents.sort( (a, b) => a.fname.localeCompare(b.fname) );
-    console.log(sortedList);
-    let options = sortedList.map(e => {
+    let sortedInCampusStudents = this.props.campusStudents.sort( (a, b) => a.fname.localeCompare(b.fname) );
+    let sortedOutCampusStudents = this.props.otherStudents.sort( (a, b) => a.fname.localeCompare(b.fname) );
+
+
+    // FIX THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+    let options = sortedOutCampusStudents.map(e => {
                   return <option key={"studentOption"+e.id} 
                           value={e.id}>{e.fname+" "+e.lname}</option>
                   });
 
-    let studentCards = sortedList.map( e => {
+    let studentCards = sortedInCampusStudents.map( e => {
                           return <StudentCardWide key={"studentCard"+e.id} {...e}
                                   fetchStudents={this.props.fetchStudents}/> 
                        });
     return (
       <div className="edit-campus-modal">
         <h1 className="campus-edit-header">Edit Campus</h1>
+
+        {/* The labels */}
         <label className="close-modal" onClick={this.props.closeModal}>✕</label>
         <label className="edit-name-label">Campus Name</label>
         <label className="edit-loca-label">Campus Location</label>
         <label className="edit-url-label">Campus Image Url</label>
         <label className="edit-desc-label">Campus Description</label>
 
+        {/* The input field tags */}
         <input className="name-input" type="text" value={this.state.name} 
         onChange={this.updateName} required />
         <input className="loca-input" type="text" value={this.state.addr}
@@ -74,12 +102,17 @@ class EditCampusForm extends Component {
         <textarea className="desc-input" rows="11" value={this.state.desc}
         onChange={this.updateDesc}/>
         
+        {/* Button to save changes*/}
         <button className="campus-save-changes" onClick={this.saveButtonHandler}>Save Changes</button>
-        <select className="student-names-dropdown">
+        
+        {/* Drop down of student names and add to campus button */}
+        <select id="studentNamesDropdown" className="student-names-dropdown">
           <option>Select student...</option>
           {options}
         </select>
-        <button className="add-to-campus-btn">Add to Campus</button>
+        <button className="add-to-campus-btn" onClick={this.addToCampusHandler}>Add to Campus</button>
+        
+        {/* Container with students in this campus */}
         <div className="students-card-container">
           {studentCards}
         </div>

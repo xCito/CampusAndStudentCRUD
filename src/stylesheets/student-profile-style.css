@@ -1,17 +1,20 @@
   /* -------------------- Single Student Container ------------------------ */
 
 .single-student {
+  position: relative;
   box-sizing: border-box;
   background-color: white;
   box-shadow: 0px 0px 10px grey;
   width: 70vw;
+  height: 650px;
   margin: auto;
+  margin-top: 15px;
   padding: 50px 45px 30px 45px;
 }
 .single-student-container {
   display: grid;
   grid-template-columns: 3fr 1fr 1fr;
-  grid-template-rows: minmax(150px,auto) auto 150px 40px;
+  grid-template-rows: minmax(50px,auto) minmax(10px, 30px) minmax(50px,100px) 40px;
   grid-template-areas: 
     "img  name  name"
     "img  email email"
@@ -27,6 +30,7 @@
   box-sizing: border-box;
   grid-area: img;
   width: 100%;
+  max-width: 450px;
   height: 100%;
   object-fit: contain;
   border: 1px solid silver;
@@ -78,19 +82,27 @@
 }
 
 .student-campus-container {
+  position: absolute;
+  bottom: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0px 2% 0px 2%;
+
+  width: 90%;
+  box-sizing: border-box;
+  /* margin-left: auto; */
 }
 .update-campus-container {
   display: flex;
   justify-content: flex-end;
+  align-self: flex-end;
   flex-wrap: wrap;
   
   width: 50%;
   box-sizing: border-box;
   border: 1px solid aliceblue;
+  padding-bottom: 10px;
 }
 .campus-dropdown {
   width: 60%;

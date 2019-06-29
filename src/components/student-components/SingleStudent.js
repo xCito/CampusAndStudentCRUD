@@ -51,8 +51,6 @@ class SingleStudent extends Component {
 
       // Get this students current campus
       let campus = res.data.filter( (elem) => elem.id === this.state.campusId)[0];
-      console.log(res.data);
-      console.log('fetchedCampus %o', campus);
       this.setState({campusInfo : campus, allCampus: res.data});
     })
     .catch( err => {
@@ -141,7 +139,7 @@ class SingleStudent extends Component {
         </div>
 
         <div className="student-campus-container">
-          <CampusCard {...this.state.campusInfo}/>
+          {(this.state.campusInfo)? <CampusCard {...this.state.campusInfo}/> : '' }
         
           <div className="update-campus-container">
             <select id="camp-select" className="campus-dropdown">
